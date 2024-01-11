@@ -1,0 +1,27 @@
+name: Python_test
+on: [push, workflow_dispatch]
+
+jobs:
+  schemachange-run:
+    env:
+        SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+        SF_USERNAME: ${{ secrets.SF_USERNAME }}
+        SF_ROLE: ${{ secrets.SF_ROLE }}
+        SF_WAREHOUSE: ${{ secrets.SF_WAREHOUSE }}
+        SF_DATABASE: ${{ secrets.SF_DATABASE }}
+        SNOWFLAKE_PASSWORD: ${{ secrets.SF_PASSWORD }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Use Python 3.8.x
+        uses: actions/setup-python@v2.2.1
+        with:
+            python-version: 3.8.x
+      - name: run schemachange
+        run: |
+            echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+            pip install schemachange
+            python $GITHUB_WORKSPACE/Schemachange_build.py -f $GITHUB_WORKSPACE -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c DEV.SCHEMACHANGE.CHANGE_HISTORY_DEV --vars {\"ENV_DATABASE_NAME\":\"DEV\"} -ac -v --schema-name-parameter MDM_DM --query-tag MDM_Deployment
