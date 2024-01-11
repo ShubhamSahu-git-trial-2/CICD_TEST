@@ -24,4 +24,4 @@ jobs:
         run: |
             echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
             pip install schemachange
-            python $GITHUB_WORKSPACE/Schemachange_build.py -f $GITHUB_WORKSPACE -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c DEV.SCHEMACHANGE.CHANGE_HISTORY_DEV --vars {\"ENV_DATABASE_NAME\":\"DEV\"} -ac -v --schema-name-parameter MDM_DM --query-tag MDM_Deployment
+            python $GITHUB_WORKSPACE/Schemachange_build.py -f $GITHUB_WORKSPACE -a $SF_ACCOUNT -u $SF_USERNAME --authentication-parameter snowflake -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c DEV.SCHEMACHANGE.CHANGE_HISTORY_DEV --vars {\"ENV_DATABASE_NAME\":\"DEV\"} -ac -v --schema-name-parameter MDM_DM --query-tag MDM_Deployment
