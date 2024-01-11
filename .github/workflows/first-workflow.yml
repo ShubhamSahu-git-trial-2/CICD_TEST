@@ -24,13 +24,4 @@ jobs:
         run: |
             echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
             pip install schemachange
-            schemachange -f $GITHUB_WORKSPACE -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table
-
-
-
-        
-
-
-      
-
-        
+            schemachange -f $GITHUB_WORKSPACE -a $SF_ACCOUNT -u $SF_USERNAME -r $SF_ROLE -w $SF_WAREHOUSE -d $SF_DATABASE -c $SF_DATABASE.SCHEMACHANGE.CHANGE_HISTORY --create-change-history-table --vars {\"ENV_DATABASE_NAME\":\"DEV\"} -ac
